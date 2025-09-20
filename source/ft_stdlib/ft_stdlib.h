@@ -6,7 +6,7 @@
 /*   By: mtarrih <mtarrih@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:18:37 by mtarrih           #+#    #+#             */
-/*   Updated: 2025/03/15 22:15:07 by mtarrih          ###   ########.fr       */
+/*   Updated: 2025/09/16 18:00:09 by mtarrih          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
 int		atoi_s(const char *str, int *rstatus);
 int		atoi_p(const char **str);
+char	*getenv_r(const char *name, char *const envp[]);
 char	*ft_getenv(const char *name);
 char	*findinpath(char *filename);
 

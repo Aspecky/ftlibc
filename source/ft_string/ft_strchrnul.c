@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strchrnul.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtarrih <mtarrih@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/28 13:49:34 by mtarrih           #+#    #+#             */
-/*   Updated: 2025/09/20 23:50:27 by mtarrih          ###   ########.fr       */
+/*   Created: 2025/09/16 20:03:05 by mtarrih           #+#    #+#             */
+/*   Updated: 2025/09/20 23:50:35 by mtarrih          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchrnul(const char *s, int c)
 {
-	char	*ptr;
-
-	ptr = ft_strchrnul(s, c);
-	if (*ptr == (char)c)
-		return (ptr);
-	return (0);
+	while (*s != (char)c)
+	{
+		if (!*s)
+			break ;
+		s++;
+	}
+	return ((char *)s);
 }

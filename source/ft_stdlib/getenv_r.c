@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   getenv_r.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtarrih <mtarrih@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/28 13:49:34 by mtarrih           #+#    #+#             */
-/*   Updated: 2025/09/20 23:50:27 by mtarrih          ###   ########.fr       */
+/*   Created: 2025/09/16 16:18:26 by mtarrih           #+#    #+#             */
+/*   Updated: 2025/09/16 18:05:12 by mtarrih          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
+#include "ft_stdlib.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*getenv_r(const char *name, char *const envp[])
 {
-	char	*ptr;
+	char	*str;
+	size_t	len;
 
-	ptr = ft_strchrnul(s, c);
-	if (*ptr == (char)c)
-		return (ptr);
+	while (*envp)
+	{
+		str = *envp;
+		len = 0;
+		while (str[len] && str[len] == name[len])
+			len++;
+		if (!name[len] && str[len] == '=')
+			return (str + len + 1);
+		envp++;
+	}
 	return (0);
 }
