@@ -7,7 +7,8 @@ LIBS := ft_ctype \
 		ft_math
 
 CLASSES := 	SinglyLinkedNode \
-			SinglyLinkedList
+			SinglyLinkedList \
+			Vector
 
 UNITS := $(LIBS) $(CLASSES)
 

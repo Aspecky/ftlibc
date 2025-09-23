@@ -1,23 +1,37 @@
-#include "ftlibc/ft_string/ft_string.h"
+#include "Vector.h"
 #include <inttypes.h>
 #include <stdint.h>
-#include <string.h>
 #include <stdio.h>
-#include <errno.h>
+#include <stdlib.h>
 
-
-void test(const char *nptr, int base)
+void print_int_arr(int *arr, size_t size)
 {
-	int rstatus;
-	intmax_t ret = ft_strtoimax(nptr, base, &rstatus);
-	printf("ret: %ji, errno: %s\n", ret, strerror(rstatus));
-	// printf("ft_strtoimax: %jd, errno: %d\n", my_ret, errno);
-
+	printf("{ ");
+	for (size_t i = 0; i < size; i++)
+	{
+		printf("%i ", arr[i]);
+	}
+	printf("}\n");
 }
-
 int main(void)
 {
-	int r;
-	printf("%ji\n", ft_strtoimax("11", 2, &r));
-	// test("    -12345   ", 10);
+	t_vector vector;
+	int *arr;
+
+	vector_init(&vector, 5, sizeof(int));
+	vector_set(&vector, 10, &(int){420});
+	arr = vector.arr;
+	
+	printf("size: %zu, cap: %zu\n", vector.size, vector.capacity);
+	vector_set(&vector, 11, &(int){420});
+	
+	for (size_t i = 0; i < vector.size; i++)
+		arr[i] = (int)i;
+	print_int_arr(arr, vector.size);
+	// vector_set(&vector, 0, &(int){69});
+	// vector_set(&vector, 5, &(int){42});
+	// printf("%i\n", *((int *)vector_get(&vector, 0)));
+	// printf("%i\n", *((int *)vector_get(&vector, 5)));
+	free(vector.arr);
+	// printf("%ji\n", ft_strtoimax("11", 2, &r));
 }

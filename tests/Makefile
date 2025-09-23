@@ -1,23 +1,22 @@
-PROJ_DIR := ../source
-
 NAME := debug
-SRCS := main.c
-OBJS := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRCS))
 
-INCLUDES := -Iinclude \
-			-I$(SRC_DIR)/include \
-			-I$(LIBS_DIR)/ftlibc/include \
-			-I$(LIBS_DIR)/mlx_aux/include
-			
-BUILD_DIR := build
-FTLIBC_DIR := $(PROJ_DIR)
+SRC_DIR := .
+BUILD_DIR := ./build
+
+HEADERS := $(shell find $(SRC_DIR) -type f -name "*.h")
+SRCS := $(shell find $(SRC_DIR) -type f -name "*.c")
+OBJS := $(SRCS:%.c=$(BUILD_DIR)/%.o)
+
+FTLIBC_DIR := ../source
 FTLIBC := $(FTLIBC_DIR)/ftlibc.a
+
+INCLUDES := -I$(FTLIBC_DIR)/include
 
 CFLAGS := -Wall -Wextra -fsanitize=address -ggdb3 -O0
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(FTLIBC) | $(BUILD_DIR)
+$(NAME): $(FTLIBC) $(OBJS) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) $(OBJS) $(FTLIBC) -o $(NAME)
 
 $(BUILD_DIR):
@@ -25,7 +24,7 @@ $(BUILD_DIR):
 
 $(BUILD_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(FTLIBC): $(shell find -L $(FTLIBC_DIR) -name "*.[ch]")
 	make -C $(FTLIBC_DIR) 'CFLAGS := $(CFLAGS)' 'TARGET_DIR := $(PWD)'
@@ -35,11 +34,11 @@ run: all
 
 .PHONY: clean
 clean:
-	make clean -C $(PROJ_DIR)
+	make clean -C $(FTLIBC_DIR)
 	rm -rf $(BUILD_DIR)
 
 fclean: clean
-	make fclean -C $(PROJ_DIR)
+	make fclean -C $(FTLIBC_DIR)
 	rm -f $(NAME)
 
 re: fclean all
