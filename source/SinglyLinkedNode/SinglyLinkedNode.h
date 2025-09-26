@@ -6,7 +6,7 @@
 /*   By: mtarrih <mtarrih@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:29:20 by mtarrih           #+#    #+#             */
-/*   Updated: 2025/01/14 04:58:09 by mtarrih          ###   ########.fr       */
+/*   Updated: 2025/09/26 18:22:43 by mtarrih          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ typedef struct s_slnode
 
 t_slnode	*slnode_new(void *data);
 t_slnode	*slnode_last(t_slnode *head);
+t_slnode	*slnode_previous(t_slnode *head, t_slnode *node);
 
 #endif
