@@ -1,37 +1,37 @@
-#include "Vector.h"
-#include <inttypes.h>
-#include <stdint.h>
+#include "SinglyLinkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-void print_int_arr(int *arr, size_t size)
+void sllist_print(t_sllist *list)
 {
-	printf("{ ");
-	for (size_t i = 0; i < size; i++)
+	if (!list)
 	{
-		printf("%i ", arr[i]);
+		printf("List is NULL\n");
+		return;
 	}
-	printf("}\n");
+	
+	t_slnode *current = list->head;
+	printf("List contents: ");
+	
+	while (current)
+	{
+		printf("\"%s\"", (char *)current->data);
+		if (current->next)
+			printf(" -> ");
+		current = current->next;
+	}
+	printf("\n");
 }
+
 int main(void)
 {
-	t_vector vector;
-	int *arr;
+	t_sllist *list = sllist_new();
+	t_slnode *prev = sllist_append(list, "first");
+	t_slnode *node = sllist_append(list, "second");
 
-	vector_init(&vector, 5, sizeof(int));
-	vector_set(&vector, 10, &(int){420});
-	arr = vector.arr;
-	
-	printf("size: %zu, cap: %zu\n", vector.size, vector.capacity);
-	vector_set(&vector, 11, &(int){420});
-	
-	for (size_t i = 0; i < vector.size; i++)
-		arr[i] = (int)i;
-	print_int_arr(arr, vector.size);
-	// vector_set(&vector, 0, &(int){69});
-	// vector_set(&vector, 5, &(int){42});
-	// printf("%i\n", *((int *)vector_get(&vector, 0)));
-	// printf("%i\n", *((int *)vector_get(&vector, 5)));
-	free(vector.arr);
-	// printf("%ji\n", ft_strtoimax("11", 2, &r));
+	sllist_print(list);
+	sllist_pop(list, node, prev);
+	sllist_print(list);
+
+	exit(0);
 }
